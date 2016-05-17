@@ -69,14 +69,21 @@ module BitBucket
     def services
       @services ||= ApiFactory.new 'Repos::Services'
     end
+
     def forks
       @forks ||= ApiFactory.new 'Repos::Forks'
     end
+
     def commits
       @commits ||=ApiFactory.new 'Repos::Commits'
     end
+
     def download
       @download ||=ApiFactory.new "Repos::Download"
+    end
+
+    def webhooks
+      @webhooks ||= ApiFactory.new 'Repos::Webhooks'
     end
 
     # Access to Repos::PullRequests API
