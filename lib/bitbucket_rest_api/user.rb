@@ -26,7 +26,7 @@ module BitBucket
     #  bitbucket.user_api.profile
     #
     def profile
-      get_request("/1.0/user")
+      get_request("/2.0/user")
     end
 
 
