@@ -234,12 +234,11 @@ module BitBucket
       _merge_user_into_params!(params) unless params.has_key?('user')
       filter! %w[ user type ], params
 
-      response = #if (user_name = params.delete("user"))
-                 #  get_request("/1.0/users/#{user_name}", params)
-                 #else
-                   # For authenticated user
-                   get_request("/1.0/user/repositories", params)
-                 #end
+      params.merge!('pagelen' => 100) unless params.has_key?('pagelen')
+
+      filter! %w[ user role pagelen ], params
+      response = get_request("/2.0/repositories", params)
+      response = response[:values]
       return response unless block_given?
       response.each { |el| yield el }
     end
