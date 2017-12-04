@@ -232,7 +232,6 @@ module BitBucket
       params = args.extract_options!
       normalize! params
       _merge_user_into_params!(params) unless params.has_key?('user')
-      filter! %w[ user type ], params
 
       params.merge!('pagelen' => 100) unless params.has_key?('pagelen')
 
