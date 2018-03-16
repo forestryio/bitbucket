@@ -237,9 +237,16 @@ module BitBucket
 
       filter! %w[ user role pagelen ], params
       response = get_request("/2.0/repositories", params)
-      response = response[:values]
-      return response unless block_given?
-      response.each { |el| yield el }
+      values = []
+      values += response[:values]
+      while response[:next]
+        uri = URI.parse(response[:next])
+        page_params = Rack::Utils.parse_nested_query(uri.query)
+        response = get_request("/2.0/repositories", params.merge(page_params))
+        values += response[:values]
+      end
+      return values unless block_given?
+      values.each { |el| yield el }
     end
 
     alias :all :list
