@@ -100,10 +100,6 @@ module BitBucket
       @components ||= ApiFactory.new 'Repos::Components'
     end
 
-    def webhooks
-      @webhooks ||= ApiFactory.new 'Repos::Webhooks'
-    end
-
     # List branches
     #
     # = Examples
